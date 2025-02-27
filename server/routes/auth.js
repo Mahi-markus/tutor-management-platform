@@ -7,6 +7,7 @@ const {
 } = require("../controller/tutor_requet_controller");
 
 const { loginUser } = require("../controller/login_controller");
+const { getTutorById } = require("../controller/tutor_id_controller");
 
 const router = express.Router();
 
@@ -27,5 +28,8 @@ router.get("/get_tutor_request", getAllTutorRequests);
 
 //  Route to get all tutors
 router.get("/tutors", getAllTutors);
+
+// ✅ Route: Get Tutor by ID
+router.get("/tutors/:id", getTutorById);
 
 module.exports = router;
