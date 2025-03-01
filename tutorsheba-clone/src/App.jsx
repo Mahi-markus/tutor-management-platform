@@ -6,6 +6,7 @@ import Signup from "./pages/signup_";
 import TutorRequestForm from './pages/request_for_tutor';
 import TutorJobDetailsPage from './pages/tutor_details';
 import TutorDashboard from './pages/profile_tutor';
+import GuardianStudentPortal from './pages/profile_student'
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/tution_list" element={<Tutors />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+         <Route path="/signup" element={<Signup />} /> 
         <Route path="/request_for_tutor" element={<TutorRequestForm />} />
         <Route path="/tutor_details" element={<TutorJobDetailsPage />} />
         <Route path="/tutor_profile" element={<TutorDashboard />} />
+        <Route path="/student_profile" element={<GuardianStudentPortal />} />
         
 
       </Routes>

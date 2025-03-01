@@ -2,6 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
+const cors = require("cors");
 const authRoutes = require("./routes/auth");
 
 dotenv.config();
@@ -12,6 +13,9 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Session-based Authentication
 app.use(
