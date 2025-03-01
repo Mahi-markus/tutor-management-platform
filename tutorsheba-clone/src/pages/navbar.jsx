@@ -9,7 +9,7 @@ const Navbar = () => {
             <span className="text-2xl font-bold text-blue-300">Tutor</span>
             <span className="text-2xl font-bold text-yellow-300">Sheba</span>
             {/* You can replace the text logo with an image if needed */}
-            <img src="/logo.png" alt="TutorSheba" className="h-10" /> 
+            {/* <img src="/logo.png" alt="TutorSheba" className="h-10" />  */}
           </a>
         </div>
         

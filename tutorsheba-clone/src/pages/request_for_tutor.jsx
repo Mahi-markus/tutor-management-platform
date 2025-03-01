@@ -169,9 +169,7 @@ const TutorRequestForm = () => {
                     <option value="">Choose One</option>
                     <option value="Class 1">Class 1</option>
                     <option value="Class 2">Class 2</option>
-                    <option value="Class 3">Class 3</option>
-                    <option value="Class 4">Class 4</option>
-                    <option value="Class 5">Class 5</option>
+               
                   </select>
                 </div>
               </div>
@@ -206,9 +204,9 @@ const TutorRequestForm = () => {
                     required
                   >
                     <option value="">Choose One</option>
-                    <option value="Gulshan">Gulshan</option>
                     <option value="Banani">Banani</option>
-                    <option value="Dinajpur">Dinajpur</option>
+                    <option value="Gulshan">Gulshan</option>
+                    <option value="Dinajpuj">Dinajpur</option>
                   </select>
                 </div>
               </div>

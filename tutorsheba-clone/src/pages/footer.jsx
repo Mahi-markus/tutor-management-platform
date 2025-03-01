@@ -1,3 +1,9 @@
+
+import logo from "../assets/logo.webp"
+import bkash from "../assets/bkash.svg"
+import qr from "../assets/QR.webp"
+import google from "../assets/google.svg"
+
 const Footer = () => {
     return (
       <footer className="bg-gray-100 py-10 px-6">
@@ -5,7 +11,7 @@ const Footer = () => {
           
           {/* Left Section - About TutorSheba */}
           <div>
-            <img src="/logo.png" alt="TutorSheba Logo" className="w-40" />
+            <img src={logo} alt="TutorSheba Logo" className="w-40" />
             <p className="text-gray-600 mt-4">
               TutorSheba.com is a platform where parents, students, and tutors can easily connect with each other. 
               We provide qualified Home/Online tutors to help your child perform better in exams.
@@ -39,16 +45,16 @@ const Footer = () => {
               <li><a href="#">FAQ</a></li>
             </ul>
             <a href="#" className="text-pink-500 font-semibold mt-2 block flex items-center">
-              <img src="/bkash.png" alt="bKash" className="w-16 inline-block mr-2" /> Pay Now
+              <img src={bkash} alt="bKash" className="w-16 inline-block mr-2" /> Pay Now
             </a>
           </div>
   
           {/* Mobile App Download */}
           <div>
             <h3 className="text-lg font-semibold mb-3">Download Our Mobile App</h3>
-            <img src="/qr-code.png" alt="QR Code" className="w-24 mb-3" />
+            <img src={google} alt="QR Code" className="w-24 mb-3" />
             <p className="text-gray-600 text-sm">Our Android App is available. Scan the QR Code or click below to download.</p>
-            <img src="/google-play.png" alt="Google Play" className="w-32 mt-3" />
+            <img src={qr} alt="Google Play" className="w-32 mt-3" />
           </div>
   
         </div>

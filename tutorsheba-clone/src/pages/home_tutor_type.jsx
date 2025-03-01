@@ -1,4 +1,5 @@
-
+// import tutor1 from "../assets/tutor2.webp"
+import tutor2 from "../assets/tutor_1.avif"
 
 const TuitionTypesSection = () => {
   return (
@@ -14,9 +15,14 @@ const TuitionTypesSection = () => {
         {/* Home Tutoring Card */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden w-80 flex-shrink-0">
           <div className="p-6 flex flex-col items-center">
-            <div className="bg-purple-100 rounded-full p-4 mb-6 w-48 h-48 flex items-center justify-center">
-              <img src="/api/placeholder/180/150" alt="Home tutoring illustration" className="w-36" />
-            </div>
+          <div className="bg-purple-100 rounded-full p-4 mb-6 w-48 h-48 flex items-center justify-center">
+  <img 
+    src={tutor2} 
+    alt="Group tutoring illustration" 
+    className="w-36 h-36 object-cover" 
+    style={{ clipPath: "circle(50%)" }} 
+  />
+</div>
             <h2 className="text-xl font-bold text-gray-800 mb-1">Home Tutoring</h2>
             <p className="text-sm text-gray-500 mb-4">Looking for one-to-one session?</p>
             <p className="text-center text-sm text-gray-600">
@@ -28,9 +34,14 @@ const TuitionTypesSection = () => {
         {/* Online Tutoring Card */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden w-80 flex-shrink-0">
           <div className="p-6 flex flex-col items-center">
-            <div className="bg-purple-100 rounded-full p-4 mb-6 w-48 h-48 flex items-center justify-center">
-              <img src="/api/placeholder/180/150" alt="Online tutoring illustration" className="w-36" />
-            </div>
+          <div className="bg-purple-100 rounded-full p-4 mb-6 w-48 h-48 flex items-center justify-center">
+  <img 
+    src={tutor2} 
+    alt="Group tutoring illustration" 
+    className="w-36 h-36 object-cover" 
+    style={{ clipPath: "circle(50%)" }} 
+  />
+</div>
             <h2 className="text-xl font-bold text-gray-800 mb-1">Online Tutoring</h2>
             <p className="text-sm text-gray-500 mb-4">Are you not with any locality?</p>
             <p className="text-center text-sm text-gray-600">
@@ -42,9 +53,16 @@ const TuitionTypesSection = () => {
         {/* Group Tutoring Card */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden w-80 flex-shrink-0">
           <div className="p-6 flex flex-col items-center">
-            <div className="bg-purple-100 rounded-full p-4 mb-6 w-48 h-48 flex items-center justify-center">
-              <img src="/api/placeholder/180/150" alt="Group tutoring illustration" className="w-36" />
-            </div>
+          <div className="bg-purple-100 rounded-full p-4 mb-6 w-48 h-48 flex items-center justify-center">
+  <img 
+    src={tutor2} 
+    alt="Group tutoring illustration" 
+    className="w-36 h-36 object-cover" 
+    style={{ clipPath: "circle(50%)" }} 
+  />
+</div>
+
+
             <h2 className="text-xl font-bold text-gray-800 mb-1">Group Tutoring</h2>
             <p className="text-sm text-gray-500 mb-4">Need the Competitive & Effective experience?</p>
             <p className="text-center text-sm text-gray-600">

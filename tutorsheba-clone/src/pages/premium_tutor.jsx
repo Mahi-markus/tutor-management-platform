@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import tutor2 from "../assets/tutor_1.avif"
 const TutorListingPage = () => {
   const [tutors, setTutors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -88,7 +88,7 @@ const TutorListingPage = () => {
           <div key={tutor._id || index} className="bg-gray-50 rounded shadow p-4">
             <div className="flex justify-center mb-4">
               <img 
-                src={tutor.profileImage || tutor.image || tutor.avatar || "/api/placeholder/160/180"} 
+                src={tutor2} 
                 alt={tutor.name || tutor.fullName || 'Tutor'}
                 className="h-40 w-36 object-cover" 
               />

@@ -63,16 +63,20 @@ const TutorHomepage = () => {
               
               {/* Tutor image */}
               <div className="mb-4 flex justify-center">
-                {tutor.placeholder ? (
-                  <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center">
-                    <svg className="w-16 h-16 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
-                    </svg>
-                  </div>
-                ) : (
-                  <div className="w-24 h-24 bg-gray-200 rounded-md"></div>
-                )}
-              </div>
+  {tutor.image ? (
+    <img 
+      src={tutor.image} 
+      alt="Tutor" 
+      className="w-24 h-24 rounded-full object-cover"
+    />
+  ) : (
+    <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center">
+      <svg className="w-16 h-16 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
+      </svg>
+    </div>
+  )}
+</div>
               
               {/* Tutor info */}
               <h3 className="font-medium text-gray-800">{tutor.name}</h3>

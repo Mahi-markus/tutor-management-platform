@@ -1,3 +1,8 @@
+import type1 from "../assets/type1.webp"
+import type2 from "../assets/type2.webp"
+import type3 from "../assets/type3.webp"
+import tutor1 from "../assets/tutor_1.avif"
+// import tutor2 from "../assets/tutor2.webp"
 
 
 const TestimonialsAndServicesSection = () => {
@@ -25,19 +30,19 @@ const TestimonialsAndServicesSection = () => {
   const services = [
     { 
       title: 'O Level',
-      image: '/api/placeholder/200/160'
+      image: type1
     },
     { 
-      title: 'A Level (AS)',
-      image: '/api/placeholder/200/160'
+      title: 'A Level AS)',
+      image: type2
     },
     { 
       title: 'A Level (A2)',
-      image: '/api/placeholder/200/160'
+      image: type3
     },
     { 
       title: 'Engineering University Admission',
-      image: '/api/placeholder/200/160'
+      image: type2
     }
   ];
 
@@ -63,7 +68,7 @@ const TestimonialsAndServicesSection = () => {
               {/* Profile image with purple border */}
               <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-purple-300 p-1">
                 <div className="w-full h-full rounded-full bg-purple-200 flex items-center justify-center">
-                  <img src="/api/placeholder/120/120" alt={item.person.name} className="w-full h-full rounded-full object-cover" />
+                  <img src={tutor1} alt={item.person.name} className="w-full h-full rounded-full object-cover" />
                 </div>
               </div>
               
