@@ -2,6 +2,10 @@ const express = require("express");
 const { registerUser, logoutUser } = require("../controller/authController");
 const { getAllTutors } = require("../controller/tutor_list_controller");
 const {
+  getAllUsers,
+  getUserById,
+} = require("../controller/get_all_controller");
+const {
   createTutorRequest,
   getAllTutorRequests,
   getTutorRequestById,
@@ -35,5 +39,10 @@ router.get("/tutors/:id", getTutorById);
 
 //get tutor request by id
 router.get("/get_tutor_request/:id", getTutorRequestById);
+
+//get all users
+router.get("/get_all_users", getAllUsers);
+
+router.get("/get_all_users/:id", getUserById);
 
 module.exports = router;
