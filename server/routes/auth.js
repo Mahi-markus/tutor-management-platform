@@ -18,7 +18,7 @@ router.post("/register", registerUser);
 router.get("/logout", logoutUser);
 
 //Login
-router.get("/login", loginUser);
+router.post("/login", loginUser);
 
 //  Create Tutor Request (POST)
 router.post("/create_tutor_request", createTutorRequest);
