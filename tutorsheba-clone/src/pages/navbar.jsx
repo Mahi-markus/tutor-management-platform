@@ -16,7 +16,7 @@ const Navbar = () => {
         <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0">
           <div className="flex space-x-6 md:mr-8">
             <a href="/tution_list" className="hover:text-blue-100 font-medium">TUITION JOBS</a>
-            <a href="/premium-tutors" className="hover:text-blue-100 font-medium">PREMIUM TUTORS</a>
+            <a href="/premium_tutor" className="hover:text-blue-100 font-medium">PREMIUM TUTORS</a>
             <a href="/request_for_tutor" className="hover:text-blue-100 font-medium">TUTOR REQUEST</a>
         
           </div>
