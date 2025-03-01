@@ -7,6 +7,8 @@ import TutorOnboardingProcess from './home_work_process'
 import Footer from './footer';
 import homeIllustration from "../assets/home_1.svg";
 import homeIllustration_2 from "../assets/home_2.svg"
+import StudentOnboardingFlow  from './home_chart';
+import FeaturedCarousel from './home_featured';
 
 const Home = () => {
   return (
@@ -90,6 +92,8 @@ const Home = () => {
       <TuitionTypesSection />
       <TestimonialsAndServicesSection/>
       <TutorOnboardingProcess />
+      <StudentOnboardingFlow  />
+      <FeaturedCarousel />
       <Footer />
     </div>
   );
