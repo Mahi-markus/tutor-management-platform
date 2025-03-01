@@ -17,7 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
          <Route path="/signup" element={<Signup />} /> 
         <Route path="/request_for_tutor" element={<TutorRequestForm />} />
-        <Route path="/tutor_details" element={<TutorJobDetailsPage />} />
+        <Route path="/tutor_details/:id" element={<TutorJobDetailsPage />} />
         <Route path="/tutor_profile" element={<TutorDashboard />} />
         <Route path="/student_profile" element={<GuardianStudentPortal />} />
         

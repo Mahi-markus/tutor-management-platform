@@ -4,6 +4,7 @@ const { getAllTutors } = require("../controller/tutor_list_controller");
 const {
   createTutorRequest,
   getAllTutorRequests,
+  getTutorRequestById,
 } = require("../controller/tutor_requet_controller");
 
 const { loginUser } = require("../controller/login_controller");
@@ -31,5 +32,8 @@ router.get("/tutors", getAllTutors);
 
 // ✅ Route: Get Tutor by ID
 router.get("/tutors/:id", getTutorById);
+
+//get tutor request by id
+router.get("/get_tutor_request/:id", getTutorRequestById);
 
 module.exports = router;

@@ -1,4 +1,8 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // Import useParams to get the id
+import Navbar from './navbar';
+import Footer from './footer';
+
 
 const TutorJobDetailsPage = () => {
   // Default job details (fallback data)
@@ -23,32 +27,60 @@ const TutorJobDetailsPage = () => {
   const [jobDetails, setJobDetails] = useState(defaultJobDetails);
   const [loading, setLoading] = useState(true);
 
+  // Get the id from URL params
+  const { id } = useParams();
+
   // Fetch data from API
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await fetch("http://localhost:5000/details");
+        const response = await fetch(`http://localhost:5000/api/auth/get_tutor_request/${id}`);
 
         if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
         }
 
         const data = await response.json();
-        setJobDetails(data);
+
+        // Transform the API data to match your frontend structure
+        const transformedData = {
+          title: data.title || `Tutor Needed For ${data.media} Medium`, // Fallback title
+          jobId: data._id || data.id || "N/A",
+          postedDate: data.createdAt ? new Date(data.createdAt).toLocaleDateString() : "N/A",
+          location: `${data.area}, ${data.district}`,
+          medium: data.media || "N/A",
+          class: data.classLevel || "N/A",
+          studentGender: data.studentGender || "N/A", // Adjust if API provides this
+          preferredTutor: data.preferredTutor || "Any",
+          tutoringDays: data.tutoringDays || "N/A",
+          tutoringTime: data.tutoringTime || "N/A", // Adjust if API provides this
+          numberOfStudents: data.numberOfStudents || 1, // Adjust if API provides this
+          subjects: data.subjects || ["N/A"],
+          salary: data.salary || "Negotiable",
+          otherRequirements: data.otherRequirements || "No additional requirements",
+        };
+
+        setJobDetails(transformedData);
       } catch (err) {
         console.error("Error fetching job details:", err);
         // Keep defaultJobDetails if API fails
+        setJobDetails(defaultJobDetails);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchJobDetails();
-  }, []);
+    if (id) {
+      fetchJobDetails();
+    } else {
+      setLoading(false); // If no id, use default and stop loading
+    }
+  }, [id]); // Re-run if id changes
 
   // Loading state
   if (loading) {
     return (
+      
       <div className="flex justify-center items-center h-screen bg-gray-100">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
@@ -60,6 +92,8 @@ const TutorJobDetailsPage = () => {
 
   // Main content with job details
   return (
+    <div>
+      <Navbar />
     <div className="flex justify-center bg-gray-100 min-h-screen py-8">
       <div className="w-full max-w-5xl">
         {/* Main content card */}
@@ -68,7 +102,7 @@ const TutorJobDetailsPage = () => {
             {jobDetails.title}
           </h1>
           <div className="text-center text-gray-600 mb-6">
-            Job ID : {jobDetails.jobId} &nbsp;&nbsp; Posted at : {jobDetails.postedDate}
+            Job ID : {jobDetails.jobId}  Posted at : {jobDetails.postedDate}
           </div>
 
           {/* Location */}
@@ -107,7 +141,7 @@ const TutorJobDetailsPage = () => {
             <div>
               <strong>Subjects:</strong>{" "}
               {jobDetails.subjects.map((subject, index) => (
-                <span key={index} className="px-2 py-1 bg-green-500 text-white text-xs rounded">
+                <span key={index} className="px-2 py-1 bg-green-500 text-white text-xs rounded mx-1">
                   {subject}
                 </span>
               ))}
@@ -133,6 +167,8 @@ const TutorJobDetailsPage = () => {
           </div>
         </div>
       </div>
+    </div>
+     <Footer />
     </div>
   );
 };

@@ -54,4 +54,32 @@ const getAllTutorRequests = async (req, res) => {
   }
 };
 
-module.exports = { createTutorRequest, getAllTutorRequests };
+// ✅ Get Tutor Request by ID
+const getTutorRequestById = async (req, res) => {
+  try {
+    const { id } = req.params; // Get ID from request parameters
+
+    // ❌ Validate if ID is provided
+    if (!id) {
+      return res.status(400).json({ message: "Tutor request ID is required" });
+    }
+
+    // ✅ Find the tutor request by ID
+    const tutorRequest = await TutorRequest.findById(id);
+
+    // ❌ Check if tutor request exists
+    if (!tutorRequest) {
+      return res.status(404).json({ message: "Tutor request not found" });
+    }
+
+    res.json(tutorRequest); // Return found tutor request
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  createTutorRequest,
+  getAllTutorRequests,
+  getTutorRequestById,
+};
