@@ -1,4 +1,8 @@
 
+import chart1 from "../assets/chart1.webp"
+import chart2 from "../assets/chart2.webp"
+import chart3 from "../assets/chart3.webp"
+// import chart4 from "../assets/chart4.webp"
 
 const StudentOnboardingFlow = () => {
   return (
@@ -38,7 +42,7 @@ const StudentOnboardingFlow = () => {
           <div className="w-full bg-white rounded-lg shadow-md p-6 z-10">
             <div className="flex items-start">
               <div className="mr-4">
-                <img src="/api/placeholder/64/64" alt="Online tutoring" className="rounded-md" />
+                <img src={chart1} alt="Online tutoring" className="rounded-md" />
               </div>
               <div>
                 <h3 className="text-lg font-medium text-gray-700">Get one to one demo session for free</h3>
@@ -58,7 +62,7 @@ const StudentOnboardingFlow = () => {
           <div className="w-full bg-white rounded-lg shadow-md p-6 z-10">
             <div className="flex items-start">
               <div className="mr-4">
-                <img src="/api/placeholder/64/64" alt="Payment envelope" className="rounded-md" />
+                <img src={chart2} alt="Payment envelope" className="rounded-md" />
               </div>
               <div>
                 <h3 className="text-lg font-medium text-gray-700">Hire your tutor</h3>
@@ -78,7 +82,7 @@ const StudentOnboardingFlow = () => {
           <div className="w-full bg-white rounded-lg shadow-md p-6 z-10">
             <div className="flex items-start">
               <div className="mr-4">
-                <img src="/api/placeholder/64/64" alt="Student and teacher" className="rounded-md" />
+                <img src={chart3} alt="Student and teacher" className="rounded-md" />
               </div>
               <div>
                 <h3 className="text-lg font-medium text-gray-700">Get results</h3>

@@ -57,7 +57,7 @@ const TestimonialsAndServicesSection = () => {
       {/* Testimonial Cards */}
       <div className="flex justify-center gap-8 mb-16 overflow-x-auto">
         {testimonials.map((item, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md w-96 flex-shrink-0 p-6">
+          <div key={index} className="bg-white rounded-lg shadow-md w-[420px] flex-shrink-0 p-8">
             <div className="text-center mb-4">
               <p className="font-medium">
                 What our <span className={`text-${item.color}`}>{item.type}</span> say about us
@@ -66,7 +66,7 @@ const TestimonialsAndServicesSection = () => {
             
             <div className="flex flex-col items-center">
               {/* Profile image with purple border */}
-              <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-purple-300 p-1">
+              <div className="w-36 h-36 rounded-full overflow-hidden mb-4 border-4 border-purple-300 p-1">
                 <div className="w-full h-full rounded-full bg-purple-200 flex items-center justify-center">
                   <img src={tutor1} alt={item.person.name} className="w-full h-full rounded-full object-cover" />
                 </div>
@@ -93,11 +93,11 @@ const TestimonialsAndServicesSection = () => {
       </div>
 
       {/* Service Cards */}
-      <div className="flex justify-center gap-4 overflow-x-auto">
+      <div className="flex justify-center gap-6 overflow-x-auto">
         {services.map((service, index) => (
-          <div key={index} className="bg-white p-4 border rounded shadow-sm w-56 flex-shrink-0">
+          <div key={index} className="bg-white p-6 border rounded shadow-sm w-74 flex-shrink-0">
             <div className="mb-4">
-              <img src={service.image} alt={service.title} className="w-full h-32 object-cover" />
+              <img src={service.image} alt={service.title} className="w-full h-46 object-cover" />
             </div>
             <h3 className="text-center font-medium text-gray-800">{service.title}</h3>
           </div>
