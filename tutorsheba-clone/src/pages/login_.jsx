@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Navbar from './navbar';
 import Footer from './footer';
 import teacher_image from "../assets/teacher.webp";
@@ -12,6 +13,8 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
+  const navigate = useNavigate(); // Initialize useNavigate
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -57,6 +60,12 @@ const Login = () => {
 
       // Optional redirect
       // window.location.href = userType === "tutor" ? "/tutor-dashboard" : "/student-dashboard";
+
+      // Redirect to /dashboard after successful login
+      setTimeout(() => {
+        navigate(`/dashboard/${response.data.user.id}`);
+      }, 1000); // Delay for better UX
+
 
     } catch (error) {
       console.error("Login error:", {

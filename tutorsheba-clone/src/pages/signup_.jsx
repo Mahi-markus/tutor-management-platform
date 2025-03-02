@@ -83,9 +83,14 @@ const RegistrationPage = () => {
           rePassword: "",
         });
       } else {
+        // Handle specific backend errors, including "user already exists"
+        let errorMessage = data.message || "Registration failed. Please try again.";
+        if (data.message && data.message.toLowerCase().includes("already exists")) {
+          errorMessage = "This email or phone number is already registered. Please login or use a different email/phone.";
+        }
         setSubmitMessage({
           type: "error",
-          text: data.message || "Registration failed. Please try again."
+          text: errorMessage
         });
       }
     } catch (error) {

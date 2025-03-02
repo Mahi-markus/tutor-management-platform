@@ -110,65 +110,68 @@ const TutorHomepage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Popular Tutors Section (Carousel) */}
-      <section className="py-8 px-4 text-center">
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Our Popular Tutors</h2>
-        <p className="text-gray-600 mb-6">Here are few of the Verified Teachers</p>
-        
-        <div className="flex justify-end mb-2">
-  <a href="/premium_tutor" className="bg-purple-700 text-white px-1 py-1 text-sm rounded">
-    View More
-  </a>
-</div>
-        
-        <div className="mb-12">
-          {tutors.length > 0 ? (
-            <Slider {...sliderSettings}>
-              {tutors.map(tutor => (
-                <div key={tutor._id || tutor.id} className="bg-white p-5 border rounded shadow-sm relative min-w-0 mx-2">
-                  {/* Featured ribbon */}
-                  <div className="absolute -top-2 -left-2 bg-purple-600 text-white py-1 px-4 transform -rotate-45 text-xs z-10">
-                    Featured
+      <section className="py-8 px-10 text-center">
+  <div className="max-w-7xl mx-auto">
+    <h2 className="text-2xl font-bold text-gray-800 mb-2">Our Popular Tutors</h2>
+    <p className="text-gray-600 mb-6">Here are few of the Verified Teachers</p>
+    
+    <div className="flex justify-end mb-2">
+      <a href="/premium_tutor" className="bg-purple-700 text-white px-1 py-1 text-sm rounded">
+        View More
+      </a>
+    </div>
+
+    <div className="mb-12">
+      {tutors.length > 0 ? (
+        <Slider {...sliderSettings}>
+          {tutors.map(tutor => (
+            <div key={tutor._id || tutor.id} className="bg-white p-5 border rounded shadow-sm relative min-w-0 mx-4">
+              {/* Featured ribbon */}
+              <div className="absolute -top-2 -left-2 bg-purple-600 text-white py-1 px-4 transform -rotate-45 text-xs z-10">
+                Featured
+              </div>
+              
+              {/* Tutor image */}
+              <div className="mb-4 flex justify-center">
+                {tutor.image ? (
+                  <img 
+                    src={tutor.image} 
+                    alt={tutor.name} 
+                    className="w-24 h-24 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center">
+                    <svg className="w-16 h-16 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
+                    </svg>
                   </div>
-                  
-                  {/* Tutor image */}
-                  <div className="mb-4 flex justify-center">
-                    {tutor.image ? (
-                      <img 
-                        src={tutor.image} 
-                        alt={tutor.name} 
-                        className="w-24 h-24 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center">
-                        <svg className="w-16 h-16 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Tutor info */}
-                  <h3 className="font-medium text-gray-800 text-center">{tutor.name || 'Unnamed Tutor'}</h3>
-                  <p className="text-xs text-gray-500 text-center mb-1">{tutor.university || 'University not specified'}</p>
-                  <p className="text-sm font-medium text-center mb-4">{tutor.subject || 'Subject not specified'}</p>
-                  
-                  {/* Action buttons */}
-                  <button className="bg-white border border-red-500 text-red-500 px-3 py-1 text-sm rounded mb-3 flex items-center mx-auto">
-                    <span className="w-3 h-3 bg-red-500 rounded-full mr-1"></span>
-                    {tutor.location}
-                  </button>
-                  
-                  <button className="w-full bg-purple-700 text-white py-2 text-sm rounded">
-                    <a href={`/premium_tutor_details/${tutor._id || tutor.id}`}>View Details</a>
-                  </button>
-                </div>
-              ))}
-            </Slider>
-          ) : (
-            <div className="text-center text-gray-500">No popular tutors available.</div>
-          )}
-        </div>
-      </section>
+                )}
+              </div>
+              
+              {/* Tutor info */}
+              <h3 className="font-medium text-gray-800 text-center">{tutor.name || 'Unnamed Tutor'}</h3>
+              <p className="text-xs text-gray-500 text-center mb-1">{tutor.university || 'University not specified'}</p>
+              <p className="text-sm font-medium text-center mb-4">{tutor.subject || 'Subject not specified'}</p>
+              
+              {/* Action buttons */}
+              <button className="bg-white border border-red-500 text-red-500 px-3 py-1 text-sm rounded mb-3 flex items-center mx-auto">
+                <span className="w-3 h-3 bg-red-500 rounded-full mr-1"></span>
+                {tutor.location}
+              </button>
+              
+              <button className="w-full bg-purple-700 text-white py-2 text-sm rounded">
+                <a href={`/premium_tutor_details/${tutor._id || tutor.id}`}>View Details</a>
+              </button>
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <div className="text-center text-gray-500">No popular tutors available.</div>
+      )}
+    </div>
+  </div>
+</section>
+
       
       {/* Find Subject Specialist Section */}
       <section className="py-8 px-4 text-center">
