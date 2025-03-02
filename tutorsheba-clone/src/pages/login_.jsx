@@ -33,7 +33,7 @@ const Login = () => {
 
     try {
       // Send data in the request body via POST
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
+      const response = await axios.post("https://tutor-management-platform.onrender.com/api/auth/login", {
         emailOrPhone,
         password,
         userType,

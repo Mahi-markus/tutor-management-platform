@@ -47,7 +47,7 @@ const TutoringJobListing = () => {
       ).toString();
 
       const response = await fetch(
-        `http://localhost:5000/api/auth/get_tutor_request${queryParams ? '?' + queryParams : ''}`,
+        `https://tutor-management-platform.onrender.com/api/auth/get_tutor_request${queryParams ? '?' + queryParams : ''}`,
         {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },

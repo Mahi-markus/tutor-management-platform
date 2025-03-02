@@ -10,11 +10,12 @@ const PremiumTutorDetails = () => {
   
   const { id } = useParams();
   
+  
   useEffect(() => {
     const fetchTutorDetails = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:5000/api/auth/tutors/${id}`);
+        const response = await fetch(`https://tutor-management-platform.onrender.com/api/auth/tutors/${id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch tutor details');

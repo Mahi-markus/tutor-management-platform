@@ -13,7 +13,7 @@ const TutorListingPage = () => {
     const fetchTutors = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/auth/tutors');
+        const response = await fetch('https://tutor-management-platform.onrender.com/api/auth/tutors');
         
         if (!response.ok) {
           throw new Error('Failed to fetch tutors');

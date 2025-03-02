@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './navbar'; // Optional, if you have a Navbar
 import Footer from './footer'; // Optional, if you have a Footer
 
+
 const Dashboard = () => {
   const { id } = useParams(); // Get user ID from URL
   const [user, setUser] = useState(null);
@@ -16,8 +17,11 @@ const Dashboard = () => {
       try {
         setLoading(true);
         const token = localStorage.getItem('token'); // Assuming you store a JWT token
+        // Dynamically use the backend URL
+ 
+
   
-        const response = await fetch(`http://localhost:5000/api/auth/get_all_users/${id}`, {
+        const response = await fetch(`https://tutor-management-platform.onrender.com/api/auth/get_all_users/${id}`, {
           method: "GET",
           headers: {
             'Authorization': token ? `Bearer ${token}` : '',
@@ -61,7 +65,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token'); // Assuming you store a JWT token
 
-      const response = await fetch('http://localhost:5000/api/auth/logout', {
+      const response = await fetch('https://tutor-management-platform.onrender.com/api/auth/logout', {
         method: "GET",
         headers: {
           'Authorization': token ? `Bearer ${token}` : '',

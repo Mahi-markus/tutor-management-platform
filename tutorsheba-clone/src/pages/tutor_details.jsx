@@ -34,7 +34,7 @@ const TutorJobDetailsPage = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/get_tutor_request/${id}`);
+        const response = await fetch(`https://tutor-management-platform.onrender.com/api/auth/get_tutor_request/${id}`);
 
         if (!response.ok) {
           throw new Error(`API request failed with status ${response.status}`);
