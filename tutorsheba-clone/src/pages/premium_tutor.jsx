@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import tutor2 from "../assets/tutor_1.avif"
+import Navbar from './navbar';
+import Footer from './footer';
 const TutorListingPage = () => {
   const [tutors, setTutors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,6 +65,8 @@ const TutorListingPage = () => {
   if (error) return <div className="flex justify-center p-10 text-red-500">Error: {error}</div>;
 
   return (
+    <div>
+      <Navbar />
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
         <div className="text-gray-600">
@@ -121,6 +125,9 @@ const TutorListingPage = () => {
               </button>
             </div>
           </div>
+        
+       
+
         ))}
       </div>
 
@@ -154,6 +161,8 @@ const TutorListingPage = () => {
           </button>
         </div>
       )}
+    </div>
+ v   <Footer />
     </div>
   );
 };
