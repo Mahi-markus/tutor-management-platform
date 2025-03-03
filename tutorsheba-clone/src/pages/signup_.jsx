@@ -87,7 +87,7 @@ const RegistrationPage = () => {
       confirmPassword: formData.rePassword,
       userType: userType
     };
-
+    //https icluded
     try {
       const response = await fetch('https://tutor-management-platform.onrender.com/api/auth/register', {
         method: 'POST',
