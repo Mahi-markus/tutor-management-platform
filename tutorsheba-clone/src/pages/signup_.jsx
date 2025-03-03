@@ -4,6 +4,7 @@ import Footer from './footer';
 import signupImage from "../assets/register.svg";
 import student_image from "../assets/student.webp";
 import teacher_image from "../assets/teacher.webp";
+import Select from 'react-select'; // Import react-select
 
 const RegistrationPage = () => {
   const [userType, setUserType] = useState("tutor");
@@ -14,27 +15,60 @@ const RegistrationPage = () => {
     phone: "",
     district: "",
     location: "",
-    preferredArea: "",
+    preferredAreas: [], // Array to store selected options
     password: "",
     rePassword: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState({ type: "", text: "" });
 
+  // District and Location mapping
   const districts = ["Dhaka", "Chattogram", "Rajshahi", "Khulna"];
-  const locations = ["Gulshan", "Banani", "Dhanmondi", "Mirpur"];
+  const locationMap = {
+    "Dhaka": ["Banani", "Gulshan", "Adabor"],
+    "Chattogram": ["A.K. Khan", "Agrab", "Agrab Barik Building"],
+    "Rajshahi": ["Puthia", "Bagmara"],
+    "Khulna": ["Dumuria", "Batiaghata"]
+  };
+
+  // Validation functions
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone) => {
+    const phoneRegex = /^01[3-9]\d{8}$/;
+    return phoneRegex.test(phone);
+  };
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    const { id, value } = e.target;
+    if (id === "district") {
+      // Reset location and preferred areas when district changes
+      setFormData({ ...formData, district: value, location: "", preferredAreas: [] });
+    } else if (id === "preferredAreas") {
+      // Handle react-select change (array of selected options)
+      setFormData({ ...formData, preferredAreas: value ? value.map(option => option.value) : [] });
+    } else {
+      setFormData({ ...formData, [id]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation checks
+    if (!validateEmail(formData.email) && userType === "tutor") {
+      setSubmitMessage({ type: "error", text: "Please enter a valid email address!" });
+      return;
+    }
+    if (!validatePhone(formData.phone)) {
+      setSubmitMessage({ type: "error", text: "Please enter a valid phone number (e.g., 01712345678)!" });
+      return;
+    }
     if (formData.password !== formData.rePassword) {
-      setSubmitMessage({
-        type: "error",
-        text: "Passwords do not match!"
-      });
+      setSubmitMessage({ type: "error", text: "Passwords do not match!" });
       return;
     }
 
@@ -48,18 +82,16 @@ const RegistrationPage = () => {
       phone: formData.phone,
       district: formData.district,
       location: formData.location,
-      preferredArea: formData.preferredArea,
+      preferredAreas: formData.preferredAreas,
       password: formData.password,
       confirmPassword: formData.rePassword,
       userType: userType
     };
 
     try {
-      const response = await fetch('https://tutor-management-platform.onrender.com/api/auth/register', {
+      const response = await fetch('http://tutor-management-platform.onrender.com/api/auth/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
@@ -70,7 +102,6 @@ const RegistrationPage = () => {
           type: "success",
           text: "Registration successful! Please login to continue."
         });
-        // Reset form
         setFormData({
           name: "",
           gender: "",
@@ -78,20 +109,16 @@ const RegistrationPage = () => {
           phone: "",
           district: "",
           location: "",
-          preferredArea: "",
+          preferredAreas: [],
           password: "",
           rePassword: "",
         });
       } else {
-        // Handle specific backend errors, including "user already exists"
         let errorMessage = data.message || "Registration failed. Please try again.";
         if (data.message && data.message.toLowerCase().includes("already exists")) {
           errorMessage = "This email or phone number is already registered. Please login or use a different email/phone.";
         }
-        setSubmitMessage({
-          type: "error",
-          text: errorMessage
-        });
+        setSubmitMessage({ type: "error", text: errorMessage });
       }
     } catch (error) {
       console.error("Error registering:", error);
@@ -104,12 +131,19 @@ const RegistrationPage = () => {
     }
   };
 
+  const currentLocations = formData.district ? locationMap[formData.district] : [];
+
+  // Convert locations to react-select options format
+  const locationOptions = currentLocations.map(location => ({
+    value: location,
+    label: location
+  }));
+
   return (
     <div>
       <Navbar />
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
         <div className="w-full max-w-7xl flex p-4">
-          {/* Left Side Illustration */}
           <div className="hidden md:flex md:w-1/2 justify-center items-center">
             <div className="relative">
               <div className="bg-purple-200 rounded-full w-64 h-64 absolute -z-10"></div>
@@ -117,25 +151,17 @@ const RegistrationPage = () => {
             </div>
           </div>
 
-          {/* Right Side Form */}
           <div className="w-full bg-white p-8 rounded-lg shadow">
             <h1 className="text-2xl font-semibold text-center text-gray-800 mb-6 border-b border-gray-200 pb-4">
               Register
             </h1>
 
             {submitMessage.text && (
-              <div
-                className={`p-4 mb-4 rounded ${
-                  submitMessage.type === "success"
-                    ? "bg-green-100 text-green-700"
-                    : "bg-red-100 text-red-700"
-                }`}
-              >
+              <div className={`p-4 mb-4 rounded ${submitMessage.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
                 {submitMessage.text}
               </div>
             )}
 
-            {/* User Type Selection */}
             <div className="bg-blue-50 rounded-lg p-4 mb-6 flex justify-between">
               <label className="flex items-center space-x-2 cursor-pointer">
                 <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center mr-2">
@@ -151,7 +177,6 @@ const RegistrationPage = () => {
                 />
                 <span className="text-gray-700">Tutor</span>
               </label>
-
               <label className="flex items-center space-x-2 cursor-pointer">
                 <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center mr-2">
                   <img src={student_image} alt="Student" className="w-full h-full object-cover" />
@@ -168,14 +193,8 @@ const RegistrationPage = () => {
               </label>
             </div>
 
-            {/* Registration Form */}
-            <form
-              className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4"
-              onSubmit={handleSubmit}
-            >
-              {/* Left Side */}
+            <form className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit}>
               <div className="space-y-4">
-                {/* Name */}
                 <div>
                   <h3 className="font-bold">Name: *</h3>
                   <input
@@ -188,8 +207,6 @@ const RegistrationPage = () => {
                     required
                   />
                 </div>
-
-                {/* Email */}
                 {userType === "tutor" && (
                   <div>
                     <h3 className="font-bold">Email: *</h3>
@@ -204,8 +221,6 @@ const RegistrationPage = () => {
                     />
                   </div>
                 )}
-
-                {/* District */}
                 {userType === "tutor" && (
                   <div>
                     <h3 className="font-bold">Tuition District: *</h3>
@@ -218,15 +233,11 @@ const RegistrationPage = () => {
                     >
                       <option value="">Select District</option>
                       {districts.map((district, index) => (
-                        <option key={index} value={district}>
-                          {district}
-                        </option>
+                        <option key={index} value={district}>{district}</option>
                       ))}
                     </select>
                   </div>
                 )}
-
-                {/* Password */}
                 <div>
                   <h3 className="font-bold">Password: *</h3>
                   <input
@@ -241,9 +252,7 @@ const RegistrationPage = () => {
                 </div>
               </div>
 
-              {/* Right Side */}
               <div className="space-y-4">
-                {/* Gender */}
                 {userType === "tutor" && (
                   <div>
                     <h3 className="font-bold">Gender: *</h3>
@@ -261,22 +270,18 @@ const RegistrationPage = () => {
                     </select>
                   </div>
                 )}
-
-                {/* Phone */}
                 <div>
                   <h3 className="font-bold">Phone: *</h3>
                   <input
                     type="tel"
                     id="phone"
-                    placeholder="01......"
+                    placeholder="01712345678"
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full p-2 border border-gray-300 rounded"
                     required
                   />
                 </div>
-
-                {/* Location */}
                 {userType === "tutor" && (
                   <div>
                     <h3 className="font-bold">Location: *</h3>
@@ -286,38 +291,59 @@ const RegistrationPage = () => {
                       onChange={handleChange}
                       className="w-full p-2 border border-gray-300 rounded appearance-none bg-white"
                       required
+                      disabled={!formData.district}
                     >
                       <option value="">Select Area</option>
-                      {locations.map((location, index) => (
-                        <option key={index} value={location}>
-                          {location}
-                        </option>
+                      {currentLocations.map((location, index) => (
+                        <option key={index} value={location}>{location}</option>
                       ))}
                     </select>
                   </div>
                 )}
-
-                {/* Preferred Area */}
                 {userType === "tutor" && (
                   <div>
-                    <h3 className="font-bold">Preferred Area:</h3>
-                    <select
-                      id="preferredArea"
-                      value={formData.preferredArea}
-                      onChange={handleChange}
-                      className="w-full p-2 border border-gray-300 rounded appearance-none bg-white"
-                    >
-                      <option value="">Select Preferred Area</option>
-                      {locations.map((location, index) => (
-                        <option key={index} value={location}>
-                          {location}
-                        </option>
-                      ))}
-                    </select>
+                    <h3 className="font-bold">Preferred Tuition Area: *</h3>
+                    <Select
+                      id="preferredAreas"
+                      isMulti
+                      options={locationOptions}
+                      value={locationOptions.filter(option => formData.preferredAreas.includes(option.value))}
+                      onChange={(selectedOptions) => handleChange({ target: { id: "preferredAreas", value: selectedOptions } })}
+                      placeholder="Set your preferred tuition area..."
+                      isDisabled={!formData.district}
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          borderColor: '#4299e1', // Blue border as in the image
+                          borderRadius: '4px',
+                          minHeight: '38px',
+                        }),
+                        multiValue: (provided) => ({
+                          ...provided,
+                          backgroundColor: '#e6f7ff', // Light blue background for tags
+                          borderRadius: '4px',
+                        }),
+                        multiValueLabel: (provided) => ({
+                          ...provided,
+                          color: '#2d3748', // Dark text for tags
+                        }),
+                        multiValueRemove: (provided) => ({
+                          ...provided,
+                          color: '#e53e3e', // Red "x" for removal
+                          ':hover': {
+                            backgroundColor: '#feb2b2',
+                            color: '#c53030',
+                          },
+                        }),
+                        placeholder: (provided) => ({
+                          ...provided,
+                          color: '#a0aec0', // Gray placeholder text
+                        }),
+                      }}
+                      className="w-full"
+                    />
                   </div>
                 )}
-
-                {/* Re-Password */}
                 <div>
                   <h3 className="font-bold">Re-enter Password: *</h3>
                   <input
@@ -332,13 +358,10 @@ const RegistrationPage = () => {
                 </div>
               </div>
 
-              {/* Full-Width Submit Button */}
               <div className="col-span-1 md:col-span-2">
                 <button
                   type="submit"
-                  className={`w-full bg-purple-700 text-white py-3 rounded hover:bg-purple-800 transition duration-200 ${
-                    isSubmitting ? "opacity-75 cursor-not-allowed" : ""
-                  }`}
+                  className={`w-full bg-purple-700 text-white py-3 rounded hover:bg-purple-800 transition duration-200 ${isSubmitting ? "opacity-75 cursor-not-allowed" : ""}`}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Submitting..." : "Submit & Register"}
@@ -346,12 +369,9 @@ const RegistrationPage = () => {
               </div>
             </form>
 
-            {/* Sign In Link */}
             <div className="text-center mt-4 text-sm text-gray-600">
               Already have an account?{" "}
-              <a href="/login" className="text-blue-600">
-                Sign in
-              </a>
+              <a href="/login" className="text-blue-600">Sign in</a>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ const registerUser = async (req, res) => {
       phone,
       district,
       location,
-      preferredArea,
+      preferredAreas, // Updated to handle array
       password,
       confirmPassword,
       userType,
@@ -40,24 +40,45 @@ const registerUser = async (req, res) => {
 
     // Validate required fields based on userType
     if (userType === "tutor") {
-      if (!email || !district || !location) {
+      if (
+        !email ||
+        !district ||
+        !location ||
+        !preferredAreas ||
+        preferredAreas.length === 0
+      ) {
         return res.status(400).json({
-          message: "Email, district, and location are required for tutors",
+          message:
+            "Email, district, location, and preferred areas are required for tutors",
         });
       }
-      // Gender and preferredArea are optional for tutors but can be included if provided
+      // Ensure preferredAreas is an array of non-empty strings
+      if (
+        !Array.isArray(preferredAreas) ||
+        preferredAreas.some((area) => !area || typeof area !== "string")
+      ) {
+        return res.status(400).json({
+          message: "Preferred areas must be a non-empty array of strings",
+        });
+      }
     } else if (userType === "student") {
       // For students, only name, phone, password, confirmPassword, and userType are required
-      // Other fields (gender, email, district, location, preferredArea) are optional
-      if (email || district || location || preferredArea || gender) {
+      // Other fields (gender, email, district, location, preferredAreas) are optional
+      if (
+        email ||
+        district ||
+        location ||
+        preferredAreas?.length > 0 ||
+        gender
+      ) {
         console.warn("Optional fields provided for student registration:", {
           email,
           district,
           location,
-          preferredArea,
+          preferredAreas,
           gender,
         });
-        // You can either ignore these fields or return a warning, depending on your needs
+        // Optionally, you can ignore these fields or return a warning
       }
     } else {
       return res
@@ -76,7 +97,7 @@ const registerUser = async (req, res) => {
       phone,
       district: userType === "tutor" ? district : undefined, // Optional for students
       location: userType === "tutor" ? location : undefined, // Optional for students
-      preferredArea: userType === "tutor" ? preferredArea : undefined, // Optional for students
+      preferredAreas: userType === "tutor" ? preferredAreas : undefined, // Updated to store array
       password: hashedPassword,
       userType,
     });
@@ -115,7 +136,7 @@ const authenticateUser = (req, res, next) => {
 
   if (!token) {
     return res
-      .status(401)
+      .status(400)
       .json({ message: "Access denied. No token provided." });
   }
 

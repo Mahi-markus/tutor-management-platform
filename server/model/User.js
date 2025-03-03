@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   district: { type: String },
   location: { type: String },
-  preferredArea: { type: String },
+  preferredAreas: [{ type: String }],
   password: { type: String, required: true },
   userType: { type: String, enum: ["tutor", "student"], required: true },
 });
