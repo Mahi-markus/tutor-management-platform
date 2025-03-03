@@ -89,7 +89,7 @@ const RegistrationPage = () => {
     };
 
     try {
-      const response = await fetch('http://tutor-management-platform.onrender.com/api/auth/register', {
+      const response = await fetch('https://tutor-management-platform.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
